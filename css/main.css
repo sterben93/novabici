@@ -1,0 +1,16 @@
+body{
+    background-image: url(../img/bici6.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#login{
+    background: #237eb2;
+    margin-top: 20%;
+    padding: 10px;
+}
+
+#inicio{
+    background: #35bebe;
+}

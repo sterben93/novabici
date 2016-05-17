@@ -1,0 +1,13 @@
+$(document).ready(function($){
+    if($cookie('sesion')==undefined){
+        $('#inicioS').show();
+        $('#productos').hide();
+        $('#notificacion').hide();
+        $('#cerrarS').hide();
+    }else{
+        $('#inicioS').hide();
+        $('#productos').show();
+        $('#notificacion').show();
+        $('#cerrarS').show();
+    }
+});
