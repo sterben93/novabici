@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Novabici</title>
+    <link rel="icon" href="img/icon_bicycle.ico">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="application/javascript" src="js/jquery.js"></script>
+    <script type="application/javascript" src="js/jquery.cookie.js"></script>
+    <script type="application/javascript" src="js/main.js"></script>
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="index.html">NovaBici</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Acerca de Nosotros <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="index.html#nosotros">Misión</a></li>
+                            <li><a href="index.html#nosotros">Visión</a></li>
+                            <li><a href="index.html#nosotros">Valores</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="renta.html#renta">Renta</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contáctanos</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="login.html" id="inicioS">Inicio Sesión</a></li>
+                            <li><a href="proNot.html#productos" id="productos">Agregar Productos</a></li>
+                            <li><a href="proNot.html#notificacion" id="notificacion">Notificaciones</a></li>
+                            <li><a href="index.html#nosotros" id="cerrarS">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+    <section id="renta">
+         <div class="container">
+            <form action="http://localhost/novabici/php/webServicesAdministrador.php" method="POST" role="form">
+	            <legend>Formulario de Contacto</legend>
+                <div class="form-group">
+                    <label for="">Nombre</label>
+		            <input type="text" class="form-control" name="nombreCliente">
+		            <label for="">Apellido Paterno</label>
+		            <input type="text" class="form-control" name="apPatCliente">
+		            <label for="">Apellido Materno</label>
+		            <input type="text" class="form-control" name="apMatCliente">
+		            <label for="">Correo</label>
+		            <input type="email" class="form-control" name="correo">
+		            <label for="">Telefono</label>
+		            <input type="tel" class="form-control" name="telefono">
+		            <label for="">Mensaje</label>
+		            <textarea class="form-control" rows="3" required="required" name="mensaje"></textarea>
+		            <input type="text" name="Productos_idProductos" style="display:none" id="id_Pro">
+		            <input type="text" name="salida" style="display:none" value="6">
+	            </div>
+	            <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+    <script>
+        var urlActual= window.location.href.split('#');
+        $('input#id_Pro').val(urlActual[1]);
+        alert($('input#id_Pro').val());
+    </script>
+         </div>
+    </section>
+</div>
+    <section id="contact">
+        <div class="container">
+           <div class="row text-center">
+                    <h2 class="section-heading">CONTÁCTANOS:</h2>
+                    <hr class="primary">
+                    <p>
+                        Calle Zaragoza No. 24 Local 4 Col. Centro
+                    </p>
+                </div>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+                    <a href="http://www.facebook.com/novabici.novabici"><i class="fa fa-facebook-square fa-3x wow bounceIn"></i></a>
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-center">
+                        <i class="fa fa-phone fa-3x wow bounceIn"></i>
+                    <p>
+                        T: 914-123-456
+                    </p>
+                    <p>
+                        F: 914-123-456
+                    </p>
+                </div>
+
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s"></i>
+                    <p><a href="mailto:your-email@your-domain.com">ECOBICI@hotmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/creative.js"></script>
+
+</body>
+
+</html>

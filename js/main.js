@@ -10,4 +10,10 @@ $(document).ready(function($){
         $('#notificacion').show();
         $('#cerrarS').show();
     }
+    $('#cerrarS').click(function(){
+        $removeCookie("email");
+        $removeCookie("sesion");
+        window.location.href='http://localhost/novabici/index.html';
+        window.location.reload;
+    });
 });

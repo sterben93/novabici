@@ -12,7 +12,7 @@
  * @author rous
  */
 ob_start();
-ini_set('display_errors', 'Off');
+ini_set('display_errors', 'On');
 error_reporting(E_ALL ^ E_NOTICE);
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 error_reporting(E_ALL);
@@ -20,136 +20,124 @@ error_reporting(-1);
 error_reporting(E_ALL | E_STRICT);
 error_reporting(0);
 ini_set('error_reporting', E_ALL);
-require './Administrador.php';
-require './Correo.php';
+require './Usuario.php';
+require './class_imgUpldr.php';
 
 $opcion = $_POST['salida'];
 
 switch ($opcion) {
     //Login del usuario
     case 1:
-        $user = $_POST['user'];
-        $password = $_POST['password'];
-        $admin = new Administrador();
-        $admin->conectar();
-        $admin->select_database();
-        $resultado = mysqli_fetch_array($admin->login($user, $password));
-        if ($resultado['login'] == 1) {
-            header("Location: http://localhost/Centro_Idiomas/menu_Administrador.html#$user");
+        $email = $_POST[CORREO];
+        $password = $_POST[PASSWORD1];
+        $user = new Usuario();
+        $user->conectar();
+        $user->select_database();
+        $resultado = mysqli_fetch_array($user->login($email, $password));
+        if ($resultado['login'] != 0) {
+            $id = $resultado['login'];
+            header("Location: http://localhost/novabici/index.html#$id");
         } else {
-            header('Location: http://localhost/Centro_Idiomas/login.html#erroLogin');
+            header('Location: http://localhost/novabici/login.html#errorLogin');
         }
-        $admin->close();
+        $user->close();
         break;
 
     //Registro de un Usuario
     case 2:
-
-        $letras = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Q", "W",
-            "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F",
-            "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"];
-        $nombre = $_POST["nombre"];
-        $apellidos = $_POST["apellidos"];
-        $contraseña = $_POST["contraseña"];
-        $correo = $_POST["correo"];
-
-        $admin = new Administrador();
-        $apellidos_Array = preg_split("/[\s]+/", $apellidos);
-        $apellido_paterno = $apellidos_Array[0];
-        $apellido_materno = $apellidos_Array[1];
-        $usuario = "CI" . $nombre[0] . $apellido_paterno[0] . $apellido_materno[0] .
-                $letras[rand(0, count($letras) - 1)] . $letras[rand(0, count($letras) - 1)] . $letras[rand(0, count($letras) - 1)];
-
-        $admin->conectar();
-        $admin->select_database();
-
-        $admin->set(ID_ADMINISTRADOR, $usuario);
-        $admin->set(NOMBRE, $nombre);
-        $admin->set(APELLIDO_MATERNO, $apellido_materno);
-        $admin->set(APELLIDO_PATERNO, $apellido_paterno);
-        $admin->set(CONTRASEÑA, $contraseña);
-        $admin->set(CORREO, $correo);
-        $admin->set(STATUS, 0);
-        $resultado = $admin->insertar();
-
-        $admin->close();
-        if ($resultado == "1") {
-            header('Location: http://localhost/Centro_Idiomas/login.html#registro');
+        $user = new Usuario();
+        $user->conectar();
+        $user->select_database();
+        $user->set(NOMBRE, $_POST[NOMBRE]);
+        $user->set(APELLIDO_PATERNO, $_POST[APELLIDO_PATERNO]);
+        $user->set(APELLIDO_MATERNO, $_POST[APELLIDO_MATERNO]);
+        $user->set(CORREO, $_POST[CORREO]);
+        $user->set(TELEFONO, $_POST[TELEFONO]);
+        $user->set(PASSWORD1, $_POST[PASSWORD1]);
+        $resultado = $user->insertar();
+        $user->close();
+        if ($resultado != "0") {
+            header('Location: http://localhost/novabici/login.html#registro');
         } else {
-            header('Location: http://localhost/Centro_Idiomas/login.html#errorRegistro');
+            header('Location: http://localhost/novabici/login.html#errorRegistro');
         }
         break;
-
-    //Opcion para obtener el la contraseña de un usuario
-    case 3:
-        $email = $_POST['correo'];
-        $admin = new Administrador();
-        $admin->conectar();
-        $admin->select_database();
-        $resultado = mysqli_fetch_array($admin->obtener_Contraseña($email));
-        $admin->close();
-        $correo = new Correo();
-        if ($correo->enviarEmail("Centro de Idiomas de ITver", $email, 'Recuperacion de contraseña', 'Su contraseña es: ' . $resultado['password'])) {
-            header('Location: http://localhost/Centro_Idiomas/login.html#email');
-        } else {
-            header('Location: http://localhost/Centro_Idiomas/login.html#errorEmail');
-        }
-        break;
-
-    //Cambia el status de un administrador
+    //registro de un producto
     case 4:
-        $id_Admin = $_POST['idAdmin'];
-        $admin = new Administrador();
-        $admin->conectar();
-        $admin->select_database();
-        $resultado = $admin->cambiar_Status($id_Admin);
-        $admin->close();
+        $t_Productos = new Table(TABLA_PRODUCTOS);
+        $t_Productos->conectar();
+        $t_Productos->select_database();
+        $t_Productos->set(NOMBRE, $_POST[NOMBRE]);
+        $t_Productos->set(DESCRIPCION, $_POST[DESCRIPCION]);
+        $t_Productos->set(PRECIO, $_POST[PRECIO]);
+        $t_Productos->set(USUARIO_ID_USUARIO, (int) $_POST[USUARIO_ID_USUARIO]);
+        $imagen = $_FILES['url'];
+        $subir = new imgUpldr;
+        $url = $subir->init($imagen, 'image/productos/');
+        $t_Productos->set('url', URLHOST . $url);
+        $t_Productos->insertar();
+        $t_Productos->close();
+        header('Location: http://localhost/novabici/proNot.html#productos');
         break;
 
     //obtengo el nombre del usuario
     case 5:
-        $usuario = $_POST['user'];
-        $admin = new Administrador();
-        $admin->conectar();
-        $admin->select_database();
-        $resultado = mysqli_fetch_array($admin->nombreUsuario($usuario));
-        echo$resultado["Nombre_Completo"];
-        break;
-
-    //obtengo los adminitradores con un estatus false
-    case 6:
-
-        $admin = new Administrador();
-        $admin->conectar();
-        $admin->select_database();
-        $resultado = $admin->status_Administrador();
+        $t_Productos = new Table(TABLA_PRODUCTOS);
+        $t_Productos->conectar();
+        $t_Productos->select_database();
+        $query = 'select * from ' . $t_Productos->nombre_Table() . ';';
+        $resultado = $t_Productos->query($query);
         $json = array();
         while ($row1 = mysqli_fetch_array($resultado)) {
-            $json[] = [ID_ADMINISTRADOR => utf8_encode($row1[ID_ADMINISTRADOR]),
-                nombreCompleto => utf8_encode($row1[NOMBRE] . " " . $row1[APELLIDO_PATERNO] .
-                        " " . $row1[APELLIDO_MATERNO]),
-                CONTRASEÑA => utf8_encode($row1[utf8_decode(CONTRASEÑA)]),
-                CORREO => utf8_encode($row1[CORREO])];
+            $json[] = [ID_PRODUCTO => $row1[ID_PRODUCTO],
+                NOMBRE => utf8_encode($row1[NOMBRE]),
+                DESCRIPCION => utf8_encode($row1[DESCRIPCION]),
+                PRECIO => utf8_encode($row1[PRECIO]),
+                USUARIO_ID_USUARIO => utf8_encode($row1[USUARIO_ID_USUARIO]),
+                'url' => utf8_encode($row1['url'])];
         }
-        echo json_encode($json);
-        $admin->close();
+        echo json_encode(array_values($json));
         break;
-
-    //Elimina un administrador
+    //agregar notificaion
+    case 6:
+        $t_Notificaciones = new Table(TABLA_NOTIFICACIONES);
+        $t_Notificaciones->conectar();
+        $t_Notificaciones->select_database();
+        // `apPatCliente`, `apMatCliente`, `correo`, `telefono`, `mensaje`, `Productos_idProductos`
+        $t_Notificaciones->set(NOMBRE_CLIENTES, $_POST[NOMBRE_CLIENTES]);
+        $t_Notificaciones->set(APELLIDO_PATERNO_CLIENTE, $_POST[APELLIDO_PATERNO_CLIENTE]);
+        $t_Notificaciones->set(APELLIDO_MATERNO_CLIENTE, $_POST[APELLIDO_MATERNO_CLIENTE]);
+        $t_Notificaciones->set(CORREO, $_POST[CORREO]);
+        $t_Notificaciones->set(TELEFONO, $_POST[TELEFONO]);
+        $t_Notificaciones->set(MENSAJE, $_POST[MENSAJE]);
+        $t_Notificaciones->set(PRODUCTOS_ID_PRODUCTOS, $_POST[PRODUCTOS_ID_PRODUCTOS]);
+        $t_Notificaciones->insertar();
+        $t_Notificaciones->close();
+        break;
     case 7:
-        $id_Admin = $_POST['idAdmin'];
-        $admin = new Administrador();
-        $admin->conectar();
-        $admin->select_database();
-        $t_Publicaciones = new Table(TABLA_PUB);
-        $t_Publicaciones->setMysqli($admin->getMysqli());
-        $where = ADMINISTRADORES_ID_ADMINISTRADORES . "='" . $id_Admin . "';";
-        $t_Publicaciones->delete($where);
-        $where = ID_ADMINISTRADOR . " = '" . $id_Admin . "'";
-        $admin->delete($where);
-        $t_Publicaciones->close();
-        $admin->close();
+        $t_Notificaciones = new Table(TABLA_NOTIFICACIONES);
+        $t_Notificaciones->conectar();
+        $t_Notificaciones->select_database();
+        $id= (int)$_POST['id'];
+        $query = "SELECT N.nombreCliente, N.apPatCliente, N.apMatCliente, N.correo,N.telefono, N.mensaje, P.nombre
+                    FROM Usuarios AS U, Productos AS P, Notificaciones AS N
+                    WHERE U.idUsuarios= $id and U.idUsuarios = P.Usuarios_idUsuarios
+                    AND P.idProductos = N.Productos_idProductos";
+        $resultado = $t_Notificaciones->query($query);
+        $json = array();
+        while ($row1 = mysqli_fetch_array($resultado)) {
+            $json[] = [NOMBRE_CLIENTES => utf8_encode($row1[NOMBRE_CLIENTES]),
+                APELLIDO_PATERNO_CLIENTE => utf8_encode($row1[APELLIDO_PATERNO_CLIENTE]),
+                APELLIDO_MATERNO_CLIENTE => utf8_encode($row1[APELLIDO_MATERNO_CLIENTE]),
+                CORREO => utf8_encode($row1[CORREO]),
+                TELEFONO => utf8_encode($row1[TELEFONO]),
+                MENSAJE => utf8_encode($row1[MENSAJE]),
+                NOMBRE => utf8_encode($row1[NOMBRE])];
+        }
+        echo json_encode(array_values($json));
         break;
 }
+
 ob_flush();
+
 ?>

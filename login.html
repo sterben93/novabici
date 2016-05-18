@@ -5,9 +5,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title Page</title>
+    <title>Novabici</title>
+    <link rel="icon" href="img/icon_bicycle.ico">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <script type="application/javascript" src="js/jquery.js"></script>
+    <script type="application/javascript" src="js/bootstrap.min.js"></script>
+    <script type="application/javascript" src="js/main/login.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn t work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,25 +25,69 @@
         <div class="row">
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="login">
-                <form action="" method="POST" role="form">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="login">
+                <form action="http://localhost/novabici/php/webServicesAdministrador.php" method="POST" role="form" id="formLogin">
                     <legend></legend>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span>
                         </span>
-                        <input type="email" class="form-control" placeholder="correo@domain.com" aria-describedby="basic-addon1">
+                        <input type="email" class="form-control" placeholder="correo@domain.com" aria-describedby="basic-addon1" name="correo">
                     </div>
                     <br/>
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span>
                         </span>
-                        <input type="password" class="form-control" placeholder="***********" aria-describedby="basic-addon1">
+                        <input type="password" class="form-control" placeholder="***********" aria-describedby="basic-addon1" name="password">
+                        <input type="text" name="salida" style="display:none" value="1">
                     </div>
                     <br/>
-                    <button type="submit" class="btn btn-primary" id="inicio">Inicio de Sesión</button>
                 </form>
+                <div class="row">
+<button type="submit" class="btn btn-primary inicio col-xs-12" form="formLogin">Inicio de Sesión</button>
+                </div>
+                <br/>
+<div class="row">
+                <button type="submit" class="btn btn-primary inicio col-xs-12" data-toggle="modal" data-target="#modal">Registrarse</button>
+</div>
+
+
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Registrarse</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="http://localhost/novabici/php/webServicesAdministrador.php" method="POST" role="form" id="formRegistro">
+                        <div class="form-group">
+                            <label for="">Nombre</label>
+                            <input type="text" class="form-control" name="nombre">
+                            <label for="">Apellido Paterno</label>
+                            <input type="text" class="form-control" name="apPat">
+                            <label for="">Apellido Materno</label>
+                            <input type="text" class="form-control" name="apMat">
+                            <label for="">Correo</label>
+                            <input type="email" class="form-control" name="correo">
+                            <label for="">Telefono</label>
+                            <input type="tel" class="form-control" name="telefono">
+                            <label for="">Contraseña</label>
+                            <input type="password" class="form-control" name="password">
+                            <input type="text" class="form-control" name="salida" value="2" style="display:none">
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary" form="formRegistro">Aceptar</button>
+                </div>
             </div>
         </div>
     </div>

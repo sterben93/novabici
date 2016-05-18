@@ -9,8 +9,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
-
+    <title>Novabici</title>
+    <link rel="icon" href="img/icon_bicycle.ico">
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 
@@ -37,7 +37,14 @@
 </head>
 
 <body id="page-top">
-
+<script>
+        var urlActual = window.location.href;
+    if (urlActual.search('#') > 0) {
+        urlActual = urlActual.split('#');
+        $cookie('id', urlActual[1]);
+        $cookie('sesion', true);
+    }
+</script>
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,7 +69,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="page-scroll" href="renta.html">Renta</a>
+                        <a class="page-scroll" href="renta.html#renta">Renta</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contáctanos</a>
@@ -74,8 +81,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="login.html" id="inicioS">Inicio Sesión</a></li>
-                            <li><a href="index.html#nosotros" id="productos">Productos</a></li>
-                            <li><a href="index.html#nosotros" id="notificacion">Notificaciones</a></li>
+                            <li><a href="proNot.html#productos" id="productos">Agregar Productos</a></li>
+                            <li><a href="proNot.html#notificacion" id="notificacion">Notificaciones</a></li>
                             <li><a href="index.html#nosotros" id="cerrarS">Cerrar Sesión</a></li>
                         </ul>
                     </li>
@@ -150,45 +157,6 @@
             </div>
         </div>
     </section>
-
-<!--
-    <section class="no-padding" id="portfolio">
-        <div class="container-fluid">
-            <div class="row no-gutter">
-                <div class="col-lg-4 col-sm-6">
-                    <div href="#" class="portfolio-box">
-                        <img src="img/bici1.jpg" class="img-responsive" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div href="#" class="portfolio-box">
-                        <img src="img/bici2.jpg" class="img-responsive" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div href="#" class="portfolio-box">
-                        <img src="img/bici3.jpg" class="img-responsive" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div href="#" class="portfolio-box">
-                        <img src="img/bici4.jpeg" class="img-responsive" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div href="#" class="portfolio-box">
-                        <img src="img/bici5.jpg" class="img-responsive" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div href="#" class="portfolio-box">
-                        <img src="img/bici6.jpg" class="img-responsive" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
--->
 
     <aside class="bg-dark">
         <div class="container text-center">

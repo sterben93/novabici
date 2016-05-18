@@ -11,66 +11,35 @@
 define('USER', "root");
 define('HOST', "localhost");
 define('PASSWORD', "archer93");
-define('USE_DATABASE', "Centro_Idiomas");
+define('USE_DATABASE', "mydb");
 
 /* Tabla del administrador */
-define('TABLA_ADMINISTRADORES', "Administradores");
-define('ID_ADMINISTRADOR', "idAdministrador");
-define('NOMBRE', "Nombre");
-define('APELLIDO_PATERNO', "Apellido_Paterno");
-define('APELLIDO_MATERNO', "Apellido_Materno");
-define('CONTRASEÑA', "Contraseña");
-define('CORREO', "Correo");
-define('STATUS', "Status");
+define('TABLA_USUARIO', "Usuarios");
+define('ID_USUARIO', "idUsuarios");
+define('NOMBRE', "nombre");
+define('APELLIDO_PATERNO', "apPat");
+define('APELLIDO_MATERNO', "apMat");
+define('CORREO', "correo");
+define('TELEFONO', "telefono");
+define('PASSWORD1', "password");
 
 /* Tabla de idiomas */
-define('TABLA_IDIOMAS', "Idiomas");
-define('ID_IDIOMAS', "idIdiomas");
-define('IDIOMAS', "Idioma");
-define('NIVELES', "Niveles");
-define('OBJETIVO', "Objetivo");
-define('PERFIL_INGRESO', "Perfil_Ingreso");
-define('PERFIL_EGRESO', "Perfil_Egreso");
-define('IMAGEN', "Imagen");
+define('TABLA_PRODUCTOS', "Productos");
+define('ID_PRODUCTO', "idProductos");
+define('DESCRIPCION', "descripcion");
+define('PRECIO', "precio");
+define('USUARIO_ID_USUARIO', "Usuarios_idUsuarios");
 
 /* Tabla de Docentes */
-define('TABLA_DOCENTES', "Docentes");
-define('ID_DOCENTES', "idDocente");
+define('TABLA_NOTIFICACIONES', "Notificaciones");
+define('ID_NOTIFICACIONES', "idNotificaciones");
+define('NOMBRE_CLIENTES', "nombreCliente");
+define('APELLIDO_PATERNO_CLIENTE', "apPatCliente");
+define('APELLIDO_MATERNO_CLIENTE', "apMatCliente");
+define('MENSAJE', "mensaje");
+define('PRODUCTOS_ID_PRODUCTOS', "Productos_idProductos");
 
-/* Tabla Cursos */
-define('TABLA_CURSOS', "Cursos");
-define('ID_CURSOS', "idCursos");
-define('NIVEL', "Nivel");
-define('HORARIO', "Horario");
-define('SALON', "salon");
-define('FEC_INI_INSC', "Fec_Inicio_Insc");
-define('FEC_FIN_INSC', "Fec_Fin_Insc");
-define('FEC_INI_CUR', "Fecha_Inicio_Curso");
-define('FEC_FIN_CUR', "Fecha_Fin_Curso");
-define('CAPACIDAD', "Capacidad");
-define('INSCRITOS', "Inscritos");
-define('PENDIENTES', "Pendientes");
-define('MAESTRO_ID_MAESTRO', "Maestros_idMaestros");
-define('IDIOMAS_ID_IDIOMAS', "Idiomas_idIdiomas");
-
-/* Tabla de Inscripciones */
-define('TABLA_INSCRIPCIONES', "Inscripciones");
-define('ID_INSCRIPCIONES', "idInscripciones");
-define('FEC_INSC', "Fecha_Insc");
-define('N_CONTROL', "N_Control");
-define('CARRERA', "Carrera");
-define('SEMESTRE', "Semestre");
-define('CURSOS_ID_CURSOS', "Cursos_idCursos");
-
-/* tabla publicaciones*/
-define('TABLA_PUB', "Publicaciones");
-define('ID_PUBLICACIONES', "idPublicaciones");
-define('TITULO', "Titulo");
-define('CONTENIDO', "Contenido");
-define('ADMINISTRADORES_ID_ADMINISTRADORES', "Administradores_idAdministrador");
-
-define('OPCION', "opcion");
-define('URLHOST', "http://localhost/Backend/");
+define('URLHOST', "http://localhost/novabici/php/");
 //define('', "");
 //define('', "");
 //define('', "");

@@ -6,11 +6,11 @@ body{
 }
 
 #login{
-    background: #237eb2;
+    background: #084062;
     margin-top: 20%;
     padding: 10px;
 }
 
-#inicio{
+.inicio{
     background: #35bebe;
 }
